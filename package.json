@@ -11,6 +11,9 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write ."
   },
+  "prisma": {
+    "seed": "ts-node src/seed.ts"
+  },
   "keywords": [
     "express",
     "prisma",
