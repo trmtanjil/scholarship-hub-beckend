@@ -54,6 +54,7 @@ const login = async (payload: any) => {
     const jwtPayload = { id: user.id, email: user.email, role: user.role };
 
     const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, { expiresIn: config.jwt_access_expires_in as any });
+
     const refreshToken = jwt.sign(jwtPayload, config.jwt_refresh_secret as string, { expiresIn: config.jwt_refresh_expires_in as any });
 
     const expiresAt = new Date();
