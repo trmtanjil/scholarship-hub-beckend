@@ -18,7 +18,7 @@ app.use(cookieParser())
 
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello from Apollo Gears World!');
+  res.send('Hello from Scholarship Hub World!');
 });
 console.log("hello")
 // global error handler
