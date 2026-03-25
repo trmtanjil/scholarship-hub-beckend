@@ -6,6 +6,7 @@ const createApplicationValidationSchema = z.object({
         sscResult: z.number().min(0).max(5),
         hscResult: z.number().min(0).max(5),
         documents: z.string().min(1, 'Documents are required'),
+        transactionId: z.string().min(1, 'Transaction ID is required'),
     }),
 });
 

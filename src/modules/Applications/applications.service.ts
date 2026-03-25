@@ -2,7 +2,13 @@ import { prisma } from '../../lib/prisma';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 
+
+
 const applyScholarship = async (userId: string, payload: any) => {
+    if (!payload.transactionId) {
+        throw new AppError(httpStatus.BAD_REQUEST, 'Payment is required to apply');
+    }
+
     const scholarship = await prisma.scholarship.findUnique({
         where: { id: payload.scholarshipId },
     });
@@ -22,12 +28,29 @@ const applyScholarship = async (userId: string, payload: any) => {
         throw new AppError(httpStatus.CONFLICT, 'You have already applied for this scholarship');
     }
 
-    const result = await prisma.application.create({
-        data: {
-            ...payload,
-            userId,
-        },
+    const result = await prisma.$transaction(async (tx) => {
+        const application = await tx.application.create({
+            data: {
+                userId,
+                scholarshipId: payload.scholarshipId,
+                sscResult: payload.sscResult,
+                hscResult: payload.hscResult,
+                documents: payload.documents,
+            },
+        });
+
+        await tx.payment.create({
+            data: {
+                applicationId: application.id,
+                transactionId: payload.transactionId,
+                amount: scholarship.applicationFee,
+                status: 'Completed',
+            },
+        });
+
+        return application;
     });
+
     return result;
 };
 
