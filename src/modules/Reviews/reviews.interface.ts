@@ -1,3 +1,6 @@
-export type TReviews = {
-    // Add interface properties here
+export type TReview = {
+    userId: string;
+    scholarshipId: string;
+    rating: number;
+    comment?: string;
     };

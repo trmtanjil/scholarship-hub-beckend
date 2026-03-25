@@ -1,6 +1,13 @@
-import { MAX_UPLOAD_SIZE } from '../../constants';
-// import { z } from 'zod';
+import { z } from 'zod';
 
-export const reviewsValidationSchema = {
-    // Add validation schemas here
+const createReviewValidationSchema = z.object({
+    body: z.object({
+        scholarshipId: z.string().min(1, 'Scholarship ID is required'),
+        rating: z.number().min(1).max(5),
+        comment: z.string().optional(),
+    }),
+});
+
+export const ReviewsValidation = {
+    createReviewValidationSchema,
     };
