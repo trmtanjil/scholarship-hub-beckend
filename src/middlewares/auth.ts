@@ -10,11 +10,14 @@ const auth = (...requiredRoles: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
+
+
+
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
     }
 
-    const accessToken = token.startsWith('Bearer ') ? token.split(' ')[1] : token;
+    const accessToken = token.split(' ')[1] || token;
 
     let decoded;
     try {
@@ -22,8 +25,8 @@ const auth = (...requiredRoles: string[]) => {
         accessToken,
         config.jwt_access_secret as string
       ) as JwtPayload;
-    } catch (err) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized!');
+    } catch (err: any) {
+      throw new AppError(httpStatus.UNAUTHORIZED, err.message || 'Unauthorized!');
     }
 
     const { role, email } = decoded;
