@@ -1,3 +1,4 @@
+
 import { Category } from "../../generated/prisma/client";
 
 export type TScholarship = {
@@ -9,4 +10,4 @@ export type TScholarship = {
     deadline: Date;
     applicationFee: number;
     postedById: string;
-    };
+};

@@ -3,6 +3,7 @@ import { TModuleRoute } from '../interface/route.interface';
 import { AuthRoutes } from '../modules/auth/auth.route';
 import { UserRoutes } from '../modules/user/user.route';
 import { ScholarshipRoutes } from '../modules/Scholarship/scholarship.route';
+import { ApplicationsRoutes } from '../modules/Applications/applications.route';
 
 const router = Router();
 
@@ -18,6 +19,10 @@ const moduleRoutes: TModuleRoute[] = [
   {
     path: '/scholarships',
     route: ScholarshipRoutes,
+  },
+  {
+    path: '/applications',
+    route: ApplicationsRoutes,
   },
 ];
 
