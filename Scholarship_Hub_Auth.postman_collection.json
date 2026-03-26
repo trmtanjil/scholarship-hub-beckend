@@ -1,13 +1,13 @@
 {
 	"info": {
 		"_postman_id": "8f76f794-1646-4d66-b8be-b8568b5266a9",
-		"name": "Scholarship Hub - Full Automation",
-		"description": "Automated setup for Scholarship Hub. Run 'Login (Admin)' first to authorize.",
+		"name": "Scholarship Hub - Master Collection",
+		"description": "Comprehensive automated testing for all roles (Admin, Moderator, User).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "1. Auth",
+			"name": "1. Authentication",
 			"item": [
 				{
 					"name": "Register User",
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"user{{$randomInt}}@example.com\",\n    \"password\": \"password123\"\n}",
+							"raw": "{\n    \"name\": \"Normal User\",\n    \"email\": \"user{{$randomInt}}@example.com\",\n    \"password\": \"password123\"\n}",
 							"options": { "raw": { "language": "json" } }
 						},
 						"url": { "raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth", "register"] }
@@ -27,134 +27,121 @@
 					"event": [
 						{
 							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();",
-									"if (jsonData.success) {",
-									"    pm.collectionVariables.set(\"admin_token\", jsonData.data.accessToken);",
-									"}"
-								],
-								"type": "text/javascript"
-							}
+							"script": { "exec": ["var jsonData = pm.response.json(); if (jsonData.success) { pm.collectionVariables.set(\"admin_token\", jsonData.data.accessToken); }"], "type": "text/javascript" }
 						}
 					],
 					"request": {
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"admin123\"\n}",
-							"options": { "raw": { "language": "json" } }
-						},
+						"body": { "mode": "raw", "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"admin123\"\n}" },
+						"url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth", "login"] }
+					}
+				},
+				{
+					"name": "Login (User/Apply Token)",
+					"event": [
+						{
+							"listen": "test",
+							"script": { "exec": ["var jsonData = pm.response.json(); if (jsonData.success) { pm.collectionVariables.set(\"user_token\", jsonData.data.accessToken); }"], "type": "text/javascript" }
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": { "mode": "raw", "raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"admin123\"\n}" },
 						"url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth", "login"] }
 					}
 				}
 			]
 		},
 		{
-			"name": "2. Scholarships",
+			"name": "2. Admin/Moderator Operations",
 			"item": [
 				{
 					"name": "Create Scholarship",
 					"event": [
 						{
 							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();",
-									"if (jsonData.success) {",
-									"    pm.collectionVariables.set(\"scholarship_id\", jsonData.data.id);",
-									"}"
-								],
-								"type": "text/javascript"
-							}
+							"script": { "exec": ["var jsonData = pm.response.json(); if (jsonData.success) { pm.collectionVariables.set(\"scholarship_id\", jsonData.data.id); }"], "type": "text/javascript" }
 						}
 					],
 					"request": {
 						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}", "type": "string" }] },
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"title\": \"Automated Scholarship {{$randomInt}}\",\n    \"universityName\": \"Oxford\",\n    \"category\": \"Full\",\n    \"subject\": \"CS\",\n    \"description\": \"Description\",\n    \"deadline\": \"2026-12-31T00:00:00.000Z\",\n    \"applicationFee\": 50\n}",
-							"options": { "raw": { "language": "json" } }
-						},
-						"url": { "raw": "{{base_url}}/scholarships", "host": ["{{base_url}}"], "path": ["scholarships"] }
-					}
-				},
-				{
-					"name": "Get All Scholarships",
-					"request": {
-						"method": "GET",
-						"header": [],
+						"body": { "mode": "raw", "raw": "{\n    \"title\": \"Major Grant {{$randomInt}}\",\n    \"universityName\": \"Oxford\",\n    \"category\": \"Full\",\n    \"subject\": \"CS\",\n    \"description\": \"Full funding\",\n    \"deadline\": \"2026-12-31T00:00:00.000Z\",\n    \"applicationFee\": 50\n}" },
 						"url": { "raw": "{{base_url}}/scholarships", "host": ["{{base_url}}"], "path": ["scholarships"] }
 					}
 				}
 			]
 		},
 		{
-			"name": "3. Payments",
+			"name": "3. User Operations",
 			"item": [
 				{
 					"name": "Create Payment Intent",
 					"event": [
 						{
 							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();",
-									"if (jsonData.success) {",
-									"    pm.collectionVariables.set(\"transaction_id\", jsonData.data.transactionId);",
-									"}"
-								],
-								"type": "text/javascript"
-							}
+							"script": { "exec": ["var jsonData = pm.response.json(); if (jsonData.success) { pm.collectionVariables.set(\"transaction_id\", jsonData.data.transactionId); }"], "type": "text/javascript" }
 						}
 					],
 					"request": {
-						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}", "type": "string" }] },
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{user_token}}", "type": "string" }] },
 						"method": "POST",
 						"header": [],
-						"body": { "mode": "raw", "raw": "{\n    \"amount\": 50\n}", "options": { "raw": { "language": "json" } } },
+						"body": { "mode": "raw", "raw": "{\n    \"amount\": 50\n}" },
 						"url": { "raw": "{{base_url}}/payments/create-payment-intent", "host": ["{{base_url}}"], "path": ["payments", "create-payment-intent"] }
 					}
-				}
-			]
-		},
-		{
-			"name": "4. Applications",
-			"item": [
+				},
 				{
-					"name": "Apply for Scholarship",
+					"name": "Submit Application",
+					"event": [
+						{
+							"listen": "test",
+							"script": { "exec": ["var jsonData = pm.response.json(); if (jsonData.success) { pm.collectionVariables.set(\"application_id\", jsonData.data.id); }"], "type": "text/javascript" }
+						}
+					],
 					"request": {
-						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}", "type": "string" }] },
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{user_token}}", "type": "string" }] },
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"scholarshipId\": \"{{scholarship_id}}\",\n    \"sscResult\": 5.0,\n    \"hscResult\": 5.0,\n    \"documents\": \"https://example.com/docs.pdf\",\n    \"transactionId\": \"{{transaction_id}}\"\n}",
-							"options": { "raw": { "language": "json" } }
-						},
+						"body": { "mode": "raw", "raw": "{\n    \"scholarshipId\": \"{{scholarship_id}}\",\n    \"sscResult\": 5.0,\n    \"hscResult\": 5.0,\n    \"documents\": \"https://example.com/cv.pdf\",\n    \"transactionId\": \"{{transaction_id}}\"\n}" },
 						"url": { "raw": "{{base_url}}/applications/apply", "host": ["{{base_url}}"], "path": ["applications", "apply"] }
 					}
-				}
-			]
-		},
-		{
-			"name": "5. Reviews",
-			"item": [
+				},
 				{
-					"name": "Submit Review",
+					"name": "View My Applications",
 					"request": {
-						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{admin_token}}", "type": "string" }] },
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{user_token}}", "type": "string" }] },
+						"method": "GET",
+						"url": { "raw": "{{base_url}}/applications/my-applications", "host": ["{{base_url}}"], "path": ["applications", "my-applications"] }
+					}
+				},
+				{
+					"name": "Edit My Application",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{user_token}}", "type": "string" }] },
+						"method": "PATCH",
+						"body": { "mode": "raw", "raw": "{\n    \"sscResult\": 4.5,\n    \"hscResult\": 4.8\n}" },
+						"url": { "raw": "{{base_url}}/applications/{{application_id}}", "host": ["{{base_url}}"], "path": ["applications", "{{application_id}}"] }
+					}
+				},
+				{
+					"name": "Add Review",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{user_token}}", "type": "string" }] },
 						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"scholarshipId\": \"{{scholarship_id}}\",\n    \"rating\": 5,\n    \"comment\": \"Amazing! {{$randomInt}}\"\n}",
-							"options": { "raw": { "language": "json" } }
-						},
+						"body": { "mode": "raw", "raw": "{\n    \"scholarshipId\": \"{{scholarship_id}}\",\n    \"rating\": 5,\n    \"comment\": \"Great!\"\n}" },
 						"url": { "raw": "{{base_url}}/reviews", "host": ["{{base_url}}"], "path": ["reviews"] }
+					}
+				},
+				{
+					"name": "Cancel Application",
+					"request": {
+						"auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{user_token}}", "type": "string" }] },
+						"method": "DELETE",
+						"url": { "raw": "{{base_url}}/applications/{{application_id}}", "host": ["{{base_url}}"], "path": ["applications", "{{application_id}}"] }
 					}
 				}
 			]
@@ -163,7 +150,9 @@
 	"variable": [
 		{ "key": "base_url", "value": "http://localhost:5000/api/v1" },
 		{ "key": "admin_token", "value": "" },
+		{ "key": "user_token", "value": "" },
 		{ "key": "scholarship_id", "value": "" },
-		{ "key": "transaction_id", "value": "" }
+		{ "key": "transaction_id", "value": "" },
+		{ "key": "application_id", "value": "" }
 	]
 }

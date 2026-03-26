@@ -39,6 +39,13 @@ router.patch(
     ApplicationsController.updateApplicationStatus
 );
 
+router.patch(
+    '/:id',
+    auth(Role.User),
+    validateRequest(ApplicationsValidation.updateApplicationValidationSchema),
+    ApplicationsController.updateApplication
+);
+
 router.delete(
     '/:id',
     auth(Role.User),

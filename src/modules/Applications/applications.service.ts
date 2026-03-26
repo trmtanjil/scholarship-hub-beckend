@@ -125,11 +125,36 @@ const deleteApplication = async (id: string, userId: string) => {
     return result;
 };
 
+const updateApplication = async (id: string, userId: string, payload: any) => {
+    const application = await prisma.application.findUnique({
+        where: { id },
+    });
+
+    if (!application) {
+        throw new AppError(httpStatus.NOT_FOUND, 'Application not found');
+    }
+
+    if (application.userId !== userId) {
+        throw new AppError(httpStatus.FORBIDDEN, 'You can only update your own applications');
+    }
+
+    if (application.status !== 'Pending') {
+        throw new AppError(httpStatus.BAD_REQUEST, 'You can only update applications that are still pending');
+    }
+
+    const result = await prisma.application.update({
+        where: { id },
+        data: payload,
+    });
+    return result;
+};
+
 export const ApplicationsService = {
     applyScholarship,
     getAllApplications,
     getMyApplications,
     getSingleApplication,
     updateApplicationStatus,
+    updateApplication,
     deleteApplication,
 };

@@ -1,11 +1,12 @@
-import { PrismaClient, Role } from "./generated/prisma/client";
+import 'dotenv/config';
 import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from "./generated/prisma/client";
 import bcrypt from "bcrypt";
 import config from "./config";
 
-const connectionString = config.database_url as string
-const adapter = new PrismaPg({ connectionString })
-const prisma = new PrismaClient({ adapter })
+const connectionString = config.database_url as string;
+const adapter = new PrismaPg({ connectionString });
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   const adminEmail = "admin@gmail.com";
@@ -13,17 +14,19 @@ async function main() {
   const saltRounds = Number(config.bcrypt_salt_rounds) || 12;
   const hashedPassword = await bcrypt.hash(adminPassword, saltRounds);
 
+  console.log(`Checking for existing admin: ${adminEmail}`);
   const existingAdmin = await prisma.user.findUnique({
     where: { email: adminEmail },
   });
 
   if (!existingAdmin) {
+    console.log("Creating admin user...");
     await prisma.user.create({
       data: {
         name: "Admin",
         email: adminEmail,
         password: hashedPassword,
-        role: Role.Admin,
+        role: "Admin",
       },
     });
     console.log("Admin user created successfully!");

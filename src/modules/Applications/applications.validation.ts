@@ -16,7 +16,16 @@ const updateApplicationStatusValidationSchema = z.object({
     }),
 });
 
+const updateApplicationValidationSchema = z.object({
+    body: z.object({
+        sscResult: z.number().optional(),
+        hscResult: z.number().optional(),
+        documents: z.string().url().optional(),
+    }),
+});
+
 export const ApplicationsValidation = {
     createApplicationValidationSchema,
     updateApplicationStatusValidationSchema,
-    };
+    updateApplicationValidationSchema,
+};

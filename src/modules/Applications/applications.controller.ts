@@ -72,11 +72,24 @@ const deleteApplication = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const updateApplication = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params as { id: string };
+    const userId = (req.user as any).id;
+    const result = await ApplicationsService.updateApplication(id, userId, req.body);
+    sendResponse(res, {
+        httpStatusCode: httpStatus.OK,
+        success: true,
+        message: 'Application updated successfully',
+        data: result,
+    });
+});
+
 export const ApplicationsController = {
     applyScholarship,
     getAllApplications,
     getMyApplications,
     getSingleApplication,
     updateApplicationStatus,
+    updateApplication,
     deleteApplication,
 };
