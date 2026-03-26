@@ -4,6 +4,7 @@ import { prisma } from '../../lib/prisma';
 import config from '../../config';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
+import { OAuth2Client } from 'google-auth-library';
 
 const register = async (payload: any) => {
     const { name, email, password, role, image } = payload;
@@ -102,8 +103,21 @@ const refreshToken = async (token: string) => {
     return { accessToken };
 };
 
-const googleLogin = async (payload: any) => {
-    const { email, name, googleId, image } = payload;
+const googleLogin = async (payload: { idToken: string }) => {
+    const { idToken } = payload;
+    const client = new OAuth2Client(config.google_client_id);
+    
+    const ticket = await client.verifyIdToken({
+        idToken,
+        audience: config.google_client_id,
+    });
+    
+    const googlePayload = ticket.getPayload();
+    if (!googlePayload) {
+        throw new AppError(httpStatus.BAD_REQUEST, 'Invalid Google Token');
+    }
+    
+    const { email, name, picture: image, sub: googleId } = googlePayload as any;
 
     let user = await prisma.user.findUnique({ where: { email } });
 

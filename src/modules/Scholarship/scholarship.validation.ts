@@ -9,6 +9,7 @@ const createScholarshipValidationSchema = z.object({
         description: z.string().min(1, 'Description is required'),
         deadline: z.string().min(1, 'Deadline is required'),
         applicationFee: z.number().min(0, 'Application Fee must be positive'),
+        universityImage: z.string().url('Invalid University Image URL').optional(),
     }),
 });
 
@@ -21,6 +22,7 @@ const updateScholarshipValidationSchema = z.object({
         description: z.string().optional(),
         deadline: z.string().optional(),
         applicationFee: z.number().optional(),
+        universityImage: z.string().url('Invalid University Image URL').optional(),
     }),
 });
 

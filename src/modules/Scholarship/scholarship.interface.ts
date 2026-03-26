@@ -9,5 +9,6 @@ export type TScholarship = {
     description: string;
     deadline: Date;
     applicationFee: number;
+    universityImage?: string;
     postedById: string;
 };

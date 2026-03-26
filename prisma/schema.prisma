@@ -57,6 +57,7 @@ model Scholarship {
   description    String
   deadline       DateTime
   applicationFee Float
+  universityImage String?
   postedById     String
   postedBy       User     @relation("PostedBy", fields: [postedById], references: [id])
   createdAt      DateTime @default(now())

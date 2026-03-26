@@ -916,6 +916,7 @@ export const ScholarshipScalarFieldEnum = {
   description: 'description',
   deadline: 'deadline',
   applicationFee: 'applicationFee',
+  universityImage: 'universityImage',
   postedById: 'postedById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

@@ -43,6 +43,7 @@ export type ScholarshipMinAggregateOutputType = {
   description: string | null
   deadline: Date | null
   applicationFee: number | null
+  universityImage: string | null
   postedById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -57,6 +58,7 @@ export type ScholarshipMaxAggregateOutputType = {
   description: string | null
   deadline: Date | null
   applicationFee: number | null
+  universityImage: string | null
   postedById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -71,6 +73,7 @@ export type ScholarshipCountAggregateOutputType = {
   description: number
   deadline: number
   applicationFee: number
+  universityImage: number
   postedById: number
   createdAt: number
   updatedAt: number
@@ -95,6 +98,7 @@ export type ScholarshipMinAggregateInputType = {
   description?: true
   deadline?: true
   applicationFee?: true
+  universityImage?: true
   postedById?: true
   createdAt?: true
   updatedAt?: true
@@ -109,6 +113,7 @@ export type ScholarshipMaxAggregateInputType = {
   description?: true
   deadline?: true
   applicationFee?: true
+  universityImage?: true
   postedById?: true
   createdAt?: true
   updatedAt?: true
@@ -123,6 +128,7 @@ export type ScholarshipCountAggregateInputType = {
   description?: true
   deadline?: true
   applicationFee?: true
+  universityImage?: true
   postedById?: true
   createdAt?: true
   updatedAt?: true
@@ -224,6 +230,7 @@ export type ScholarshipGroupByOutputType = {
   description: string
   deadline: Date
   applicationFee: number
+  universityImage: string | null
   postedById: string
   createdAt: Date
   updatedAt: Date
@@ -261,6 +268,7 @@ export type ScholarshipWhereInput = {
   description?: Prisma.StringFilter<"Scholarship"> | string
   deadline?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
   applicationFee?: Prisma.FloatFilter<"Scholarship"> | number
+  universityImage?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   postedById?: Prisma.StringFilter<"Scholarship"> | string
   createdAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
@@ -278,6 +286,7 @@ export type ScholarshipOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
   applicationFee?: Prisma.SortOrder
+  universityImage?: Prisma.SortOrderInput | Prisma.SortOrder
   postedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -298,6 +307,7 @@ export type ScholarshipWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Scholarship"> | string
   deadline?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
   applicationFee?: Prisma.FloatFilter<"Scholarship"> | number
+  universityImage?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   postedById?: Prisma.StringFilter<"Scholarship"> | string
   createdAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
@@ -315,6 +325,7 @@ export type ScholarshipOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
   applicationFee?: Prisma.SortOrder
+  universityImage?: Prisma.SortOrderInput | Prisma.SortOrder
   postedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -337,6 +348,7 @@ export type ScholarshipScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Scholarship"> | string
   deadline?: Prisma.DateTimeWithAggregatesFilter<"Scholarship"> | Date | string
   applicationFee?: Prisma.FloatWithAggregatesFilter<"Scholarship"> | number
+  universityImage?: Prisma.StringNullableWithAggregatesFilter<"Scholarship"> | string | null
   postedById?: Prisma.StringWithAggregatesFilter<"Scholarship"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Scholarship"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Scholarship"> | Date | string
@@ -351,6 +363,7 @@ export type ScholarshipCreateInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   postedBy: Prisma.UserCreateNestedOneWithoutScholarshipsInput
@@ -367,6 +380,7 @@ export type ScholarshipUncheckedCreateInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   postedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -383,6 +397,7 @@ export type ScholarshipUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   postedBy?: Prisma.UserUpdateOneRequiredWithoutScholarshipsNestedInput
@@ -399,6 +414,7 @@ export type ScholarshipUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -415,6 +431,7 @@ export type ScholarshipCreateManyInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   postedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -429,6 +446,7 @@ export type ScholarshipUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -442,6 +460,7 @@ export type ScholarshipUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -466,6 +485,7 @@ export type ScholarshipCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
   applicationFee?: Prisma.SortOrder
+  universityImage?: Prisma.SortOrder
   postedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -484,6 +504,7 @@ export type ScholarshipMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
   applicationFee?: Prisma.SortOrder
+  universityImage?: Prisma.SortOrder
   postedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -498,6 +519,7 @@ export type ScholarshipMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
   applicationFee?: Prisma.SortOrder
+  universityImage?: Prisma.SortOrder
   postedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -603,6 +625,7 @@ export type ScholarshipCreateWithoutPostedByInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   applications?: Prisma.ApplicationCreateNestedManyWithoutScholarshipInput
@@ -618,6 +641,7 @@ export type ScholarshipUncheckedCreateWithoutPostedByInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutScholarshipInput
@@ -662,6 +686,7 @@ export type ScholarshipScalarWhereInput = {
   description?: Prisma.StringFilter<"Scholarship"> | string
   deadline?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
   applicationFee?: Prisma.FloatFilter<"Scholarship"> | number
+  universityImage?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   postedById?: Prisma.StringFilter<"Scholarship"> | string
   createdAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
@@ -676,6 +701,7 @@ export type ScholarshipCreateWithoutApplicationsInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   postedBy: Prisma.UserCreateNestedOneWithoutScholarshipsInput
@@ -691,6 +717,7 @@ export type ScholarshipUncheckedCreateWithoutApplicationsInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   postedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -722,6 +749,7 @@ export type ScholarshipUpdateWithoutApplicationsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   postedBy?: Prisma.UserUpdateOneRequiredWithoutScholarshipsNestedInput
@@ -737,6 +765,7 @@ export type ScholarshipUncheckedUpdateWithoutApplicationsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -752,6 +781,7 @@ export type ScholarshipCreateWithoutReviewsInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   postedBy: Prisma.UserCreateNestedOneWithoutScholarshipsInput
@@ -767,6 +797,7 @@ export type ScholarshipUncheckedCreateWithoutReviewsInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   postedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -798,6 +829,7 @@ export type ScholarshipUpdateWithoutReviewsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   postedBy?: Prisma.UserUpdateOneRequiredWithoutScholarshipsNestedInput
@@ -813,6 +845,7 @@ export type ScholarshipUncheckedUpdateWithoutReviewsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -828,6 +861,7 @@ export type ScholarshipCreateManyPostedByInput = {
   description: string
   deadline: Date | string
   applicationFee: number
+  universityImage?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -841,6 +875,7 @@ export type ScholarshipUpdateWithoutPostedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applications?: Prisma.ApplicationUpdateManyWithoutScholarshipNestedInput
@@ -856,6 +891,7 @@ export type ScholarshipUncheckedUpdateWithoutPostedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutScholarshipNestedInput
@@ -871,6 +907,7 @@ export type ScholarshipUncheckedUpdateManyWithoutPostedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicationFee?: Prisma.FloatFieldUpdateOperationsInput | number
+  universityImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -924,6 +961,7 @@ export type ScholarshipSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   description?: boolean
   deadline?: boolean
   applicationFee?: boolean
+  universityImage?: boolean
   postedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -942,6 +980,7 @@ export type ScholarshipSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   description?: boolean
   deadline?: boolean
   applicationFee?: boolean
+  universityImage?: boolean
   postedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -957,6 +996,7 @@ export type ScholarshipSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   description?: boolean
   deadline?: boolean
   applicationFee?: boolean
+  universityImage?: boolean
   postedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -972,12 +1012,13 @@ export type ScholarshipSelectScalar = {
   description?: boolean
   deadline?: boolean
   applicationFee?: boolean
+  universityImage?: boolean
   postedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ScholarshipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "universityName" | "category" | "subject" | "description" | "deadline" | "applicationFee" | "postedById" | "createdAt" | "updatedAt", ExtArgs["result"]["scholarship"]>
+export type ScholarshipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "universityName" | "category" | "subject" | "description" | "deadline" | "applicationFee" | "universityImage" | "postedById" | "createdAt" | "updatedAt", ExtArgs["result"]["scholarship"]>
 export type ScholarshipInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   postedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   applications?: boolean | Prisma.Scholarship$applicationsArgs<ExtArgs>
@@ -1007,6 +1048,7 @@ export type $ScholarshipPayload<ExtArgs extends runtime.Types.Extensions.Interna
     description: string
     deadline: Date
     applicationFee: number
+    universityImage: string | null
     postedById: string
     createdAt: Date
     updatedAt: Date
@@ -1444,6 +1486,7 @@ export interface ScholarshipFieldRefs {
   readonly description: Prisma.FieldRef<"Scholarship", 'String'>
   readonly deadline: Prisma.FieldRef<"Scholarship", 'DateTime'>
   readonly applicationFee: Prisma.FieldRef<"Scholarship", 'Float'>
+  readonly universityImage: Prisma.FieldRef<"Scholarship", 'String'>
   readonly postedById: Prisma.FieldRef<"Scholarship", 'String'>
   readonly createdAt: Prisma.FieldRef<"Scholarship", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Scholarship", 'DateTime'>

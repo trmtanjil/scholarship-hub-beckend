@@ -29,7 +29,8 @@ export type Category = (typeof Category)[keyof typeof Category]
 export const ApplicationStatus = {
   Pending: 'Pending',
   Review: 'Review',
-  Accepted: 'Accepted'
+  Accepted: 'Accepted',
+  Rejected: 'Rejected'
 } as const
 
 export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]

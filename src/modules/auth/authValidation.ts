@@ -25,10 +25,7 @@ const refreshTokenValidationSchema = z.object({
 
 const googleLoginValidationSchema = z.object({
   body: z.object({
-    email: z.string().email('Invalid email address'),
-    name: z.string().optional(),
-    googleId: z.string(),
-    image: z.string().optional(),
+    idToken: z.string().min(1, 'ID Token is required'),
   }),
 });
 
