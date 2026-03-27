@@ -9,6 +9,7 @@ import cors from 'cors';
 import { authRoutes } from "./modules/auth/auth.route";
  import { userRouter } from "./modules/user/user.route";
 import { ScholarshipRoutes } from "./modules/Scholarship/scholarship.route";
+import { ApplicationsRoutes } from "./modules/Applications/applications.route";
  
 const app = express();
 app.set("trust proxy", 1);
@@ -69,6 +70,8 @@ app.use("/api/authenticatoin",authRoutes)
 app.use("/api/admin", userRouter);
 
 app.use("/api/scholarship", ScholarshipRoutes);
+
+app.use("/api/applications", ApplicationsRoutes);
 
  
 app.get("/",(req:Request,res:Response)=>{

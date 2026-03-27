@@ -3,8 +3,8 @@ import { auth as betterAuth } from "../lib/auth";
 import { fromNodeHeaders } from "better-auth/node";
 
 export enum UserRole {
-  CUSTOMER = "USER",
-  SELLER = "MODERATOR",
+  USER = "USER",
+  MODERATOR = "MODERATOR",
   ADMIN = "ADMIN",
 }
 

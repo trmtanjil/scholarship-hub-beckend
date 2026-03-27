@@ -8,7 +8,7 @@ const router = Router();
 
 router.post(
     '/',
-    auth(UserRole.ADMIN, UserRole.SELLER),
+    auth(UserRole.ADMIN),
     validateRequest(ScholarshipValidation.createScholarshipValidationSchema),
     ScholarshipController.createScholarship
 );
@@ -25,7 +25,7 @@ router.get(
 
 router.patch(
     '/:id',
-    auth(UserRole.ADMIN, UserRole.SELLER),
+    auth(UserRole.ADMIN, UserRole.MODERATOR),
     validateRequest(ScholarshipValidation.updateScholarshipValidationSchema),
     ScholarshipController.updateScholarship
 );
