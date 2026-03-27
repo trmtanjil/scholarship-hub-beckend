@@ -82,7 +82,7 @@ app.use("/api/reviews", ReviewsRoutes);
 app.use("/api/payment",PaymentRoutes)
  
 app.get("/",(req:Request,res:Response)=>{
-    res.send('hlw world')
+    res.send('scholarship hub is running')
 })
 
 //global error handler
