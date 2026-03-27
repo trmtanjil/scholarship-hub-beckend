@@ -1,72 +1,53 @@
-import { Request, Response } from 'express';
-import { catchAsync } from '../../shared/catchAsync';
-import { sendResponse } from '../../shared/sendResponse';
-import httpStatus from 'http-status';
-import { AuthService } from './auth.services';
+import type { Request, Response as ExpressResponse } from "express";
+import { auth } from "../../lib/auth";
+import { fromNodeHeaders } from "better-auth/node";
 
-const register = catchAsync(async (req: Request, res: Response) => {
-    const result = await AuthService.register(req.body);
-
-    sendResponse(res, {
-        httpStatusCode: httpStatus.CREATED,
-        success: true,
-        message: 'User registered successfully!',
-        data: result,
-    });
-});
-
-const login = catchAsync(async (req: Request, res: Response) => {
-    const result = await AuthService.login(req.body);
-
-    res.cookie('refreshToken', result.refreshToken, {
-        secure: process.env.NODE_ENV === 'production',
-        httpOnly: true,
+const getMe = async (req: Request, res: ExpressResponse) => {
+  try {
+    const session = await auth.api.getSession({
+      headers: fromNodeHeaders(req.headers as Record<string, string>),
     });
 
-    sendResponse(res, {
-        httpStatusCode: httpStatus.OK,
-        success: true,
-        message: 'User logged in successfully!',
-        data: {
-            accessToken: result.accessToken,
-            refreshToken: result.refreshToken, // এটি যোগ করো 
-        },
+    if (!session) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized - No session found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: session,
     });
-});
-
-const refreshToken = catchAsync(async (req: Request, res: Response) => {
-    const { refreshToken } = req.cookies;
-    const result = await AuthService.refreshToken(refreshToken);
-
-    sendResponse(res, {
-        httpStatusCode: httpStatus.OK,
-        success: true,
-        message: 'Access token generated successfully!',
-        data: result,
+  } catch (error: any) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
     });
-});
+  }
+};
 
-const googleLogin = catchAsync(async (req: Request, res: Response) => {
-    const result = await AuthService.googleLogin(req.body);
-
-    res.cookie('refreshToken', result.refreshToken, {
-        secure: process.env.NODE_ENV === 'production',
-        httpOnly: true,
+const logout = async (req: Request, res: ExpressResponse) => {
+  try {
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
     });
 
-    sendResponse(res, {
-        httpStatusCode: httpStatus.OK,
-        success: true,
-        message: 'User logged in with Google successfully!',
-        data: {
-            accessToken: result.accessToken,
-        },
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully!",
     });
-});
+  } catch (error: any) {
+    return res.status(500).json({
+      success: false,
+      message: "Logout failed",
+    });
+  }
+};
 
-export const AuthController = {
-    register,
-    login,
-    refreshToken,
-    googleLogin,
+export const authController = {
+  getMe,
+  logout,
 };

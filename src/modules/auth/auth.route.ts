@@ -1,32 +1,15 @@
-import express from 'express';
-import validateRequest from '../../middlewares/validateRequest';
-import { AuthValidation } from './authValidation';
-import { AuthController } from './auth.controller';
-
+import express from "express";
+import { authController } from "./auth.controller";
+import auth from "../../middalewared/auth";
+ 
 const router = express.Router();
 
+router.get("/me", authController.getMe);
+// /api/auth/logout
 router.post(
-    '/register',
-    validateRequest(AuthValidation.registerValidationSchema),
-    AuthController.register
+  "/logout",
+  auth(),  
+  authController.logout
 );
 
-router.post(
-    '/login',
-    validateRequest(AuthValidation.loginValidationSchema),
-    AuthController.login
-);
-
-router.post(
-    '/refresh-token',
-    validateRequest(AuthValidation.refreshTokenValidationSchema),
-    AuthController.refreshToken
-);
-
-router.post(
-    '/google-login',
-    validateRequest(AuthValidation.googleLoginValidationSchema),
-    AuthController.googleLogin
-);
-
-export const AuthRoutes = router;
+export const authRoutes = router;

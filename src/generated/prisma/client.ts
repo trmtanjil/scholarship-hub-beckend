@@ -12,6 +12,8 @@
 
 import * as process from 'node:process'
 import * as path from 'node:path'
+import { fileURLToPath } from 'node:url'
+globalThis['__dirname'] = path.dirname(fileURLToPath(import.meta.url))
 
 import * as runtime from "@prisma/client/runtime/client"
 import * as $Enums from "./enums"
@@ -26,9 +28,7 @@ export * from "./enums"
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient({
- *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
- * })
+ * const prisma = new PrismaClient()
  * // Fetch zero or more Users
  * const users = await prisma.user.findMany()
  * ```
@@ -45,27 +45,17 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
- * Model Scholarship
+ * Model Session
  * 
  */
-export type Scholarship = Prisma.ScholarshipModel
+export type Session = Prisma.SessionModel
 /**
- * Model Application
+ * Model Account
  * 
  */
-export type Application = Prisma.ApplicationModel
+export type Account = Prisma.AccountModel
 /**
- * Model Review
+ * Model Verification
  * 
  */
-export type Review = Prisma.ReviewModel
-/**
- * Model Payment
- * 
- */
-export type Payment = Prisma.PaymentModel
-/**
- * Model RefreshToken
- * 
- */
-export type RefreshToken = Prisma.RefreshTokenModel
+export type Verification = Prisma.VerificationModel

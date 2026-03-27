@@ -1,48 +1,19 @@
-import { Router } from 'express';
-import validateRequest from '../../middlewares/validateRequest';
-import { UserControllers } from './user.controller';
-import { UserValidation } from './userValidation';
-import auth from '../../middlewares/auth';
-import { Role } from '../../generated/prisma/enums';
+import auth, { UserRole } from "../../middalewared/auth";
+import { userController } from "./user.controller";
+ import express  from "express";
+const router  = express.Router()
+ 
 
-const router = Router();
-
+// /api/admin/users
 router.get(
-  '/',
-  auth(Role.Admin),
-  UserControllers.getAllUsers
-);
-
-router.get(
-  '/my-profile',
-  auth(Role.Admin, Role.Moderator, Role.User),
-  UserControllers.getMyProfile
-);
-
-router.get(
-  '/:id',
-  auth('Admin'),
-  UserControllers.getSingleUser
+  "/users", 
+  auth(UserRole.ADMIN), // অ্যাডমিন এক্সেস পাবে
+  userController.getAllUsers
 );
 
 router.patch(
-  '/update-profile',
-  auth('Admin', 'Moderator', 'User'),
-  validateRequest(UserValidation.updateUserValidationSchema),
-  UserControllers.updateProfile
+  "/:id", 
+  auth(UserRole.ADMIN), // অ্যাডমিন এক্সেস পাবে
+  userController.updateUserStatus
 );
-
-router.patch(
-  '/:id/role',
-  auth('Admin'),
-  validateRequest(UserValidation.changeUserRoleValidationSchema),
-  UserControllers.changeUserRole
-);
-
-router.delete(
-  '/:id',
-  auth('Admin'),
-  UserControllers.deleteUser
-);
-
-export const UserRoutes = router;
+export const userRouter  = router
