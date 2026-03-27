@@ -54,7 +54,11 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Scholarship: 'Scholarship',
+  Application: 'Application',
+  Review: 'Review',
+  Payment: 'Payment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -132,6 +136,64 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const ScholarshipScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  universityName: 'universityName',
+  category: 'category',
+  subject: 'subject',
+  description: 'description',
+  deadline: 'deadline',
+  applicationFee: 'applicationFee',
+  postedById: 'postedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ScholarshipScalarFieldEnum = (typeof ScholarshipScalarFieldEnum)[keyof typeof ScholarshipScalarFieldEnum]
+
+
+export const ApplicationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  scholarshipId: 'scholarshipId',
+  status: 'status',
+  sscResult: 'sscResult',
+  hscResult: 'hscResult',
+  documents: 'documents',
+  appliedDate: 'appliedDate',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  scholarshipId: 'scholarshipId',
+  rating: 'rating',
+  comment: 'comment',
+  reviewDate: 'reviewDate',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  transactionId: 'transactionId',
+  amount: 'amount',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
 export const SortOrder = {

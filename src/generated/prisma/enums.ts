@@ -16,3 +16,29 @@ export const UserRole = {
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const ApplicationStatus = {
+  Pending: 'Pending',
+  Review: 'Review',
+  Accepted: 'Accepted'
+} as const
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
+
+
+export const PaymentStatus = {
+  Pending: 'Pending',
+  Completed: 'Completed',
+  Failed: 'Failed'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const Category = {
+  Full: 'Full',
+  Partial: 'Partial'
+} as const
+
+export type Category = (typeof Category)[keyof typeof Category]

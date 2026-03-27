@@ -8,6 +8,7 @@ import { prisma } from "./lib/prisma";
 import cors from 'cors';
 import { authRoutes } from "./modules/auth/auth.route";
  import { userRouter } from "./modules/user/user.route";
+import { ScholarshipRoutes } from "./modules/Scholarship/scholarship.route";
  
 const app = express();
 app.set("trust proxy", 1);
@@ -67,8 +68,8 @@ app.use("/api/authenticatoin",authRoutes)
 //all user get admi 
 app.use("/api/admin", userRouter);
 
+app.use("/api/scholarship", ScholarshipRoutes);
 
-//reviw path 
  
 app.get("/",(req:Request,res:Response)=>{
     res.send('hlw world')

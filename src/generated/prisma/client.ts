@@ -59,3 +59,23 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Scholarship
+ * 
+ */
+export type Scholarship = Prisma.ScholarshipModel
+/**
+ * Model Application
+ * 
+ */
+export type Application = Prisma.ApplicationModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
