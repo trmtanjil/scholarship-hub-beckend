@@ -12,6 +12,8 @@ import { ScholarshipRoutes } from "./modules/Scholarship/scholarship.route";
 import { ApplicationsRoutes } from "./modules/Applications/applications.route";
 import { ReviewsRoutes } from "./modules/Reviews/reviews.route";
 import { PaymentRoutes } from "./modules/Payment/payment.route";
+import globalErrorHandler from "./middalewared/globalErrorHandler";
+import notFound from "./middalewared/NotFound";
  
 const app = express();
 app.set("trust proxy", 1);
@@ -83,5 +85,9 @@ app.get("/",(req:Request,res:Response)=>{
     res.send('hlw world')
 })
 
+//global error handler
+app.use(globalErrorHandler);
+
+app.use(notFound);
 
 export default app;
