@@ -10,6 +10,8 @@ import { authRoutes } from "./modules/auth/auth.route";
  import { userRouter } from "./modules/user/user.route";
 import { ScholarshipRoutes } from "./modules/Scholarship/scholarship.route";
 import { ApplicationsRoutes } from "./modules/Applications/applications.route";
+import { ReviewsRoutes } from "./modules/Reviews/reviews.route";
+import { PaymentRoutes } from "./modules/Payment/payment.route";
  
 const app = express();
 app.set("trust proxy", 1);
@@ -73,6 +75,9 @@ app.use("/api/scholarship", ScholarshipRoutes);
 
 app.use("/api/applications", ApplicationsRoutes);
 
+app.use("/api/reviews", ReviewsRoutes);
+
+app.use("/api/payment",PaymentRoutes)
  
 app.get("/",(req:Request,res:Response)=>{
     res.send('hlw world')
