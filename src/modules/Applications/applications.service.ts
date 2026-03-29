@@ -102,6 +102,37 @@ const deleteApplication = async (id: string, userId: string) => {
     return result;
 };
 
+const completeRegistration = async (userId: string, payload: any) => {
+  const { scholarshipId, transactionId, amount, sscResult, hscResult, documents } = payload;
+
+  return await prisma.$transaction(async (tx) => {
+    // সরাসরি অ্যাপ্লিকেশন তৈরি করো এবং তার ভেতরেই পেমেন্ট ক্রিয়েট করো
+    const result = await tx.application.create({
+      data: {
+        userId,
+        scholarshipId,
+        sscResult: Number(sscResult),
+        hscResult: Number(hscResult),
+        documents,
+        status: 'Review',
+        // পেমেন্টটি এখানে নেস্টেডভাবে তৈরি হচ্ছে
+        payment: {
+          create: {
+            transactionId,
+            amount,
+            status: 'Completed',
+          }
+        }
+      },
+      include: {
+        payment: true // পেমেন্টসহ রিটার্ন পাওয়ার জন্য
+      }
+    });
+
+    return result;
+  });
+};
+
 export const ApplicationsService = {
     applyScholarship,
     getAllApplications,
@@ -109,4 +140,5 @@ export const ApplicationsService = {
     getSingleApplication,
     updateApplicationStatus,
     deleteApplication,
+    completeRegistration
 };

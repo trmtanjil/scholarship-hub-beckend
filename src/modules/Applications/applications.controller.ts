@@ -73,6 +73,18 @@ const deleteApplication = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const completeRegistration = catchAsync(async (req: Request, res: Response) => {
+    const userId = (req.user as any).id;
+    // এখানে req.body তে পেমেন্ট এবং অ্যাপ্লিকেশনের সব ডেটা থাকবে
+    const result = await ApplicationsService.completeRegistration(userId, req.body);
+    
+    sendResponse(res, {
+        httpStatusCode: httpStatus.CREATED,
+        success: true,
+        message: 'Payment confirmed and application submitted successfully',
+        data: result,
+    });
+});
 export const ApplicationsController = {
     applyScholarship,
     getAllApplications,
@@ -80,4 +92,5 @@ export const ApplicationsController = {
     getSingleApplication,
     updateApplicationStatus,
     deleteApplication,
+    completeRegistration
 };

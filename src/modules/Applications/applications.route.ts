@@ -39,7 +39,11 @@ router.patch(
     validateRequest(ApplicationsValidation.updateApplicationStatusValidationSchema),
     ApplicationsController.updateApplicationStatus
 );
-
+router.post(
+    '/complete-registration',
+    auth(UserRole.USER), // নিশ্চিত করো শুধু লগইন করা ইউজার পারবে
+    ApplicationsController.completeRegistration
+);
 router.delete(
     '/:id',
     auth( UserRole.USER),
