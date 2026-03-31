@@ -1,22 +1,12 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
-// If your Prisma file is located elsewhere, you can change the path
+import { env } from "../config/env";
+ 
 
-// Support multiple trusted origins via TRUSTED_ORIGINS env var (comma-separated)
-// Fallback to APP_URL for compatibility
-const trustedOriginsEnv =
-  process.env.TRUSTED_ORIGINS || process.env.APP_URL || "";
+const trustedOriginsEnv =[env.TRUSTED_ORIGINS!];
 const trustedOrigins = trustedOriginsEnv
-  .split(",")
-  .map((s) => s.trim())
-  .filter(Boolean);
-
-if (trustedOrigins.length === 0) {
-  throw new Error(
-    "No trusted origins configured. Set TRUSTED_ORIGINS or APP_URL",
-  );
-}
+  
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -54,22 +44,25 @@ export const auth = betterAuth({
 
   advanced: {
     defaultCookieAttributes: {
-      sameSite: "lax",
-      secure: false,
       httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      partitioned:true,
       //extra
       path: "/",
     },
-    trustProxy: true,
     cookies: {
-      state: {
-        attributes: {
-          sameSite: "lax",
-          secure: false,
-          // extra
-          path: "/",
-        },
-      },
-    },
+     state: {
+       attributes: {
+         httpOnly: true,
+         secure: true,
+         sameSite: "none",
+         partitioned:true,
+         // extra 
+         path: "/",
+       },
+     },
+   },
   },
 });
+

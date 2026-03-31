@@ -69,3 +69,87 @@ console.log("selsion",session)
 };
 
 export default auth;
+
+
+
+
+
+
+
+
+
+
+
+
+// import { NextFunction, Request, Response } from "express";
+ 
+
+// export enum UserRole {
+//   USER = "USER",
+//   MODERATOR = "MODERATOR",
+//   ADMIN = "ADMIN",
+// }
+
+
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       user?: {
+//         id: string;
+//         email: string;
+//         name: string;
+//         role: string;
+//         emailVerified: boolean;
+//       };
+//     }
+//   }
+// }
+
+// const auth = (...roles: UserRole[]) => {
+//   return async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//          const sessionToken = req.cookies["__secure-session-token"] ||req.cookies["__session-token"];
+//       if (!sessionToken) {
+//        throw new Error("No session token found");
+//       }  
+
+
+
+//       if (!sessionToken || !sessionToken.user) {
+//         return res.status(401).json({
+//           success: false,
+//           message: "You are not authorized! ",
+//         });
+//       }
+
+//       req.user = {
+//         id: sessionToken.user.id,
+//         email: sessionToken.user.email,
+//         name: sessionToken.user.name,
+//         role: sessionToken.user.role ?? "USER",
+//         emailVerified: sessionToken.user.emailVerified ?? false,
+//       };
+
+//       if (roles.length > 0) {
+//         const userRole = req.user.role as UserRole;
+//         if (!roles.includes(userRole)) {
+//           return res.status(403).json({
+//             success: false,
+//             message:
+//               "Forbidden! You do not have permission to access this resource!",
+//           });
+//         }
+//       }
+
+//       next();
+//     } catch (err) {
+//       console.error("Auth Middleware Error:", err);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Internal server error during authentication",
+//       });
+//     }
+//   };
+// };
+
+// export default auth;
